@@ -20,9 +20,9 @@ struct User {
         guard let user = value as? [String: Any] else { return returnResult }
         guard let infoData = user["info"] as? [String: Any] else { return returnResult }
         guard let resultsData = user["results"] as? [[String: Any]] else { return returnResult }
-                
+        
         return User(
-            results: resultsData.compactMap { Person.getPerson(value: $0) },
+            results: resultsData.compactMap { Person.getPerson(from: $0) },
             info: Info(infoData: infoData)
         )
     }
@@ -63,9 +63,9 @@ struct Person {
     let picture: Picture
     let nat: String
     
-    static func getPerson(value: [String: Any]) -> Person {
-        let def = Person(
-            gender: "", name: Name(value: [:]), location: Location.getLocation(from: [:]),
+    static func getPerson(from value: [String: Any]) -> Person {
+        let result = Person(
+            gender: "", name: Name(nameData: [:]), location: Location.getLocation(from: [:]),
             email: "", login: Login(loginData: [:]), dob: Dob(dobData: [:]),
             registered: Registration(regData: [:]), phone: "", cell: "",
             id: Id(idData: [:]), picture: Picture(pictureData: [:]), nat: ""
@@ -79,9 +79,9 @@ struct Person {
             let regData = value["registered"] as? [String: Any],
             let idData = value["id"] as? [String: Any],
             let pictureData = value["picture"] as? [String: Any]
-        else { return def }
+        else { return result }
         
-        let name = Name(value: nameData)
+        let name = Name(nameData: nameData)
         let location = Location.getLocation(from: locationData)
         let login = Login(loginData: loginData)
         let dob = Dob(dobData: dobData)
@@ -108,10 +108,10 @@ struct Name {
     let first: String
     let last: String
     
-    init(value: [String: Any]) {
-        title = value["title"] as? String ?? ""
-        first = value["first"] as? String ?? ""
-        last = value["last"] as? String ?? ""
+    init(nameData: [String: Any]) {
+        title = nameData["title"] as? String ?? ""
+        first = nameData["first"] as? String ?? ""
+        last = nameData["last"] as? String ?? ""
     }
 }
 
@@ -125,9 +125,9 @@ struct Location {
     let timezone: Timezone
     
     static func getLocation(from locationData: [String: Any]) -> Location {
-        let def = Location(
+        let result = Location(
             street: Street(streetData: [:]), city: "", state: "",
-            country: "", postcode: 0, coordinates: Coordinates(tzoneData: [:]),
+            country: "", postcode: 0, coordinates: Coordinates(coordinatesData: [:]),
             timezone: Timezone(tzoneData: [:])
         )
         
@@ -135,10 +135,10 @@ struct Location {
             let streetData = locationData["street"] as? [String: Any],
             let coordinatesData = locationData["coordinates"] as? [String: Any],
             let timezoneData = locationData["timezone"] as? [String: Any]
-        else { return def }
+        else { return result }
         
         let street = Street(streetData: streetData)
-        let coordinates = Coordinates(tzoneData: coordinatesData)
+        let coordinates = Coordinates(coordinatesData: coordinatesData)
         let timezone = Timezone(tzoneData: timezoneData)
         
         let city = locationData["city"] as? String ?? ""
@@ -167,9 +167,9 @@ struct Coordinates {
     let latitude: String
     let longitude: String
     
-    init(tzoneData: [String: Any]) {
-        latitude = tzoneData["latitude"] as? String ?? ""
-        longitude = tzoneData["longitude"] as? String ?? ""
+    init(coordinatesData: [String: Any]) {
+        latitude = coordinatesData["latitude"] as? String ?? ""
+        longitude = coordinatesData["longitude"] as? String ?? ""
     }
 }
 
