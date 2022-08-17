@@ -18,12 +18,12 @@ struct User {
         )
         
         guard let user = value as? [String: Any] else { return returnResult }
-        guard let information = user["info"] as? [String: Any] else { return returnResult }
-        guard let personInfo = user["results"] as? [[String: Any]] else { return returnResult }
-        
+        guard let infoData = user["info"] as? [String: Any] else { return returnResult }
+        guard let resultsData = user["results"] as? [[String: Any]] else { return returnResult }
+                
         return User(
-            results: personInfo.compactMap { Person.getPerson(value: $0) },
-            info: Info(infoData: information)
+            results: resultsData.compactMap { Person.getPerson(value: $0) },
+            info: Info(infoData: infoData)
         )
     }
 }
@@ -64,36 +64,42 @@ struct Person {
     let nat: String
     
     static func getPerson(value: [String: Any]) -> Person {
-        let def = Person(gender: "", name: Name(value: [:]), location: Location.getLocation(from: [:]), email: "", login: Login(loginData: [:]), dob: Dob(dobData: [:]), registered: Registration(regData: [:]), phone: "", cell: "", id: Id(idData: [:]), picture: Picture(pictureData: [:]), nat: "")
+        let def = Person(
+            gender: "", name: Name(value: [:]), location: Location.getLocation(from: [:]),
+            email: "", login: Login(loginData: [:]), dob: Dob(dobData: [:]),
+            registered: Registration(regData: [:]), phone: "", cell: "",
+            id: Id(idData: [:]), picture: Picture(pictureData: [:]), nat: ""
+        )
         
-        let gender = value["gender"] as? String ?? ""
+        guard
+            let nameData = value["name"] as? [String: Any],
+            let locationData = value["location"] as? [String: Any],
+            let loginData = value["login"] as? [String: Any],
+            let dobData = value["dob"] as? [String: Any],
+            let regData = value["registered"] as? [String: Any],
+            let idData = value["id"] as? [String: Any],
+            let pictureData = value["picture"] as? [String: Any]
+        else { return def }
         
-        guard let nameData = value["name"] as? [String: Any] else { return def }
         let name = Name(value: nameData)
-        guard let locationData = value["location"] as? [String: Any] else { return def }
         let location = Location.getLocation(from: locationData)
-        
-        let email = value["email"] as? String ?? ""
-        
-        guard let loginData = value["login"] as? [String: Any] else { return def }
         let login = Login(loginData: loginData)
-        guard let dobData = value["dob"] as? [String: Any] else { return def }
         let dob = Dob(dobData: dobData)
-        guard let regData = value["registered"] as? [String: Any] else { return def }
         let registered = Registration(regData: regData)
-        
-        let phone = value["phone"] as? String ?? ""
-        let cell = value["cell"] as? String ?? ""
-        
-        guard let idData = value["id"] as? [String: Any] else { return def }
         let id = Id(idData: idData)
-        guard let pictureData = value["picture"] as? [String: Any] else { return def }
         let picture = Picture(pictureData: pictureData)
         
+        let gender = value["gender"] as? String ?? ""
+        let email = value["email"] as? String ?? ""
+        let phone = value["phone"] as? String ?? ""
+        let cell = value["cell"] as? String ?? ""
         let nat = value["nat"] as? String ?? ""
         
         return Person(
-            gender: gender, name: name, location: location, email: email, login: login, dob: dob, registered: registered, phone: phone, cell: cell, id: id, picture: picture, nat: nat)
+            gender: gender, name: name, location: location, email: email,
+            login: login, dob: dob, registered: registered, phone: phone,
+            cell: cell, id: id, picture: picture, nat: nat
+        )
     }
 }
 
@@ -119,23 +125,31 @@ struct Location {
     let timezone: Timezone
     
     static func getLocation(from locationData: [String: Any]) -> Location {
-        let def = Location(street: Street(streetData: [:]), city: "", state: "", country: "", postcode: 0, coordinates: Coordinates(tzoneData: [:]), timezone: Timezone(tzoneData: [:]))
+        let def = Location(
+            street: Street(streetData: [:]), city: "", state: "",
+            country: "", postcode: 0, coordinates: Coordinates(tzoneData: [:]),
+            timezone: Timezone(tzoneData: [:])
+        )
         
-        guard let streetData = locationData["street"] as? [String: Any] else { return def}
+        guard
+            let streetData = locationData["street"] as? [String: Any],
+            let coordinatesData = locationData["coordinates"] as? [String: Any],
+            let timezoneData = locationData["timezone"] as? [String: Any]
+        else { return def }
+        
         let street = Street(streetData: streetData)
+        let coordinates = Coordinates(tzoneData: coordinatesData)
+        let timezone = Timezone(tzoneData: timezoneData)
         
         let city = locationData["city"] as? String ?? ""
         let state = locationData["state"] as? String ?? ""
         let country = locationData["country"] as? String ?? ""
         let postcode = locationData["postcode"] as? Int ?? 0
         
-        guard let coordinatesData = locationData["coordinates"] as? [String: Any] else { return def }
-        let coordinates = Coordinates(tzoneData: coordinatesData)
-        
-        guard let timezoneData = locationData["timezone"] as? [String: Any] else { return def }
-        let timezone = Timezone(tzoneData: timezoneData)
-        
-        return Location(street: street, city: city, state: state, country: country, postcode: postcode, coordinates: coordinates, timezone: timezone)
+        return Location(
+            street: street, city: city, state: state, country: country,
+            postcode: postcode, coordinates: coordinates, timezone: timezone
+        )
     }
 }
 
