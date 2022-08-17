@@ -13,6 +13,9 @@
 		ADC66A6C28ACE2DE0066DD77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADC66A6A28ACE2DE0066DD77 /* Main.storyboard */; };
 		ADC66A6E28ACE2DF0066DD77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADC66A6D28ACE2DF0066DD77 /* Assets.xcassets */; };
 		ADC66A7128ACE2DF0066DD77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADC66A6F28ACE2DF0066DD77 /* LaunchScreen.storyboard */; };
+		ADC66A7F28ACE3870066DD77 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC66A7E28ACE3870066DD77 /* NetworkManager.swift */; };
+		ADC66A8128ACE3AD0066DD77 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC66A8028ACE3AD0066DD77 /* User.swift */; };
+		ADC66A8428ACE3D50066DD77 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = ADC66A8328ACE3D50066DD77 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,8 @@
 		ADC66A6D28ACE2DF0066DD77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADC66A7028ACE2DF0066DD77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ADC66A7228ACE2DF0066DD77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ADC66A7E28ACE3870066DD77 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		ADC66A8028ACE3AD0066DD77 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADC66A8428ACE3D50066DD77 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,15 +62,65 @@
 		ADC66A6328ACE2DE0066DD77 /* RandomUser */ = {
 			isa = PBXGroup;
 			children = (
-				ADC66A6428ACE2DE0066DD77 /* AppDelegate.swift */,
-				ADC66A6628ACE2DE0066DD77 /* SceneDelegate.swift */,
-				ADC66A6828ACE2DE0066DD77 /* ViewController.swift */,
-				ADC66A6A28ACE2DE0066DD77 /* Main.storyboard */,
-				ADC66A6D28ACE2DF0066DD77 /* Assets.xcassets */,
-				ADC66A6F28ACE2DF0066DD77 /* LaunchScreen.storyboard */,
-				ADC66A7228ACE2DF0066DD77 /* Info.plist */,
+				ADC66A7D28ACE3610066DD77 /* Model */,
+				ADC66A7C28ACE3510066DD77 /* Services */,
+				ADC66A7828ACE30C0066DD77 /* App */,
+				ADC66A7928ACE3300066DD77 /* ViewControllers */,
+				ADC66A7A28ACE33B0066DD77 /* Storyboards */,
+				ADC66A7B28ACE3480066DD77 /* Resources */,
 			);
 			path = RandomUser;
+			sourceTree = "<group>";
+		};
+		ADC66A7828ACE30C0066DD77 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				ADC66A6428ACE2DE0066DD77 /* AppDelegate.swift */,
+				ADC66A6628ACE2DE0066DD77 /* SceneDelegate.swift */,
+				ADC66A7228ACE2DF0066DD77 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		ADC66A7928ACE3300066DD77 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				ADC66A6828ACE2DE0066DD77 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		ADC66A7A28ACE33B0066DD77 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				ADC66A6A28ACE2DE0066DD77 /* Main.storyboard */,
+				ADC66A6F28ACE2DF0066DD77 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		ADC66A7B28ACE3480066DD77 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ADC66A6D28ACE2DF0066DD77 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		ADC66A7C28ACE3510066DD77 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				ADC66A7E28ACE3870066DD77 /* NetworkManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		ADC66A7D28ACE3610066DD77 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ADC66A8028ACE3AD0066DD77 /* User.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +139,9 @@
 			dependencies = (
 			);
 			name = RandomUser;
+			packageProductDependencies = (
+				ADC66A8328ACE3D50066DD77 /* Alamofire */,
+			);
 			productName = RandomUser;
 			productReference = ADC66A6128ACE2DE0066DD77 /* RandomUser.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +170,9 @@
 				Base,
 			);
 			mainGroup = ADC66A5828ACE2DE0066DD77;
+			packageReferences = (
+				ADC66A8228ACE3D50066DD77 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = ADC66A6228ACE2DE0066DD77 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,8 +200,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADC66A7F28ACE3870066DD77 /* NetworkManager.swift in Sources */,
 				ADC66A6928ACE2DE0066DD77 /* ViewController.swift in Sources */,
 				ADC66A6528ACE2DE0066DD77 /* AppDelegate.swift in Sources */,
+				ADC66A8128ACE3AD0066DD77 /* User.swift in Sources */,
 				ADC66A6728ACE2DE0066DD77 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,7 +352,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RandomUser/Info.plist;
+				INFOPLIST_FILE = RandomUser/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -315,7 +379,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RandomUser/Info.plist;
+				INFOPLIST_FILE = RandomUser/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -356,6 +420,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ADC66A8228ACE3D50066DD77 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.6.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ADC66A8328ACE3D50066DD77 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ADC66A8228ACE3D50066DD77 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ADC66A5928ACE2DE0066DD77 /* Project object */;
 }
